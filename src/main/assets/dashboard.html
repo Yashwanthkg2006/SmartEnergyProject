@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCEM Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+        }
+        h1 {
+            background: #2c7be5;
+            color: white;
+            padding: 15px;
+        }
+        .card {
+            background: white;
+            width: 250px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Smart Campus Energy Manager</h1>
+
+<div class="card" id="classroom" onclick="showReading('Classroom 1', 120, 'classroom')">
+    <h2>Classroom 1</h2>
+    <p>Power Usage: 120 W</p>
+    <button onclick="simulateOff(event)">
+        Turn OFF unused devices
+    </button>
+    <!-- ADD THIS LINE -->
+    <p class="status" id="classroom-status"></p>
+</div>
+
+<div class="card" id="lab" onclick="showReading('Lab 1', 450, 'lab')">
+    <h2>Lab 1</h2>
+    <p>Power Usage: 450 W</p>
+    <button onclick="simulateOff(event)">
+        Turn OFF unused devices
+    </button>
+    <p class="status" id="lab-status"></p>
+</div>
+
+<div class="card" id="library" onclick="showReading('Library', 300, 'library')">
+    <h2>Library</h2>
+    <p>Power Usage: 300 W</p>
+    <button onclick="simulateOff(event)">
+        Turn OFF unused devices
+    </button>
+    <p class="status" id="library-status"></p>
+</div>
+<script>
+    function showReading(place, power, id) {
+
+      let card = document.getElementById(id);
+      let suggestion = "";
+
+      if (power > 400) {
+        card.style.backgroundColor = "#ffcccc";
+        suggestion = "High energy usage detected. Consider turning off unused devices.";
+      }
+      else if (power > 200) {
+        card.style.backgroundColor = "#fff3cd";
+        suggestion = "Moderate energy usage.";
+      }
+      else {
+        card.style.backgroundColor = "#d4edda";
+        suggestion = "Energy usage is normal.";
+      }
+
+      alert(
+        "Location: " + place +
+        "\nPower Usage: " + power + " W" +
+        "\nSuggestion: " + suggestion
+      );
+    }
+    function simulateOff(event) {
+  event.stopPropagation(); // prevents card click
+  alert("Simulation: Unused devices turned OFF to save energy.");
+}
+</script>
+</body>
+</html>
